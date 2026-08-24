@@ -2,10 +2,10 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5 bg-black mt-auto">
-      <div className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 2xl:px-32 py-16">
+    <footer className="border-t border-white/5 bg-black">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {/* Brand — wider text area */}
+          {/* Brand */}
           <div>
             <Link href="/" className="flex items-center gap-2.5 mb-5" id="footer-logo">
               <div className="w-8 h-8 rounded-lg bg-[#0076df] flex items-center justify-center">
@@ -15,7 +15,7 @@ export default function Footer() {
               </div>
               <span className="font-bold text-white text-lg">Hirelume</span>
             </Link>
-            <p className="text-sm text-zinc-500 leading-relaxed max-w-sm">
+            <p className="text-sm text-zinc-500 leading-relaxed max-w-xs">
               AI-powered resume analysis to help you land your dream job. Free to try — no account required.
             </p>
           </div>
@@ -38,7 +38,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Legal — restored with placeholder links that don't 404 (use # for now) */}
+          {/* Legal */}
           <div>
             <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-5">Legal</h3>
             <ul className="space-y-4">

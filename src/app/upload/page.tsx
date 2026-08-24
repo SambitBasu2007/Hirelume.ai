@@ -40,24 +40,23 @@ export default function UploadPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black">
-      {/* Main content container — properly centered with generous spacing */}
-      <div className="max-w-3xl mx-auto px-6 sm:px-8 pt-32 pb-24">
-        {/* Header — centered with proper margins */}
-        <div className="text-center mb-14">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-5 text-white">
+    <div className="min-h-screen bg-black pt-36 pb-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-2xl mx-auto w-full">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl sm:text-5xl font-black tracking-tight mb-4 text-white">
             Analyze your <span className="text-accent">resume</span>
           </h1>
-          <p className="text-zinc-400 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
+          <p className="text-zinc-400 text-base sm:text-lg max-w-lg mx-auto leading-relaxed">
             Upload a file or paste your resume text below to get started.
           </p>
         </div>
 
-        {/* Card — more padding, better rounded corners */}
-        <div className="glass-card rounded-3xl p-8 sm:p-10">
-          {/* Tabs — more padding, better spacing */}
+        {/* Main Card */}
+        <div className="glass-card rounded-2xl p-6 sm:p-8 mb-8">
+          {/* Tabs */}
           <div
-            className="flex bg-white/[0.04] rounded-xl p-1.5 mb-10"
+            className="flex bg-white/[0.04] rounded-xl p-1 mb-8"
             role="tablist"
             aria-label="Resume input method"
           >
@@ -87,9 +86,9 @@ export default function UploadPage() {
                   setActiveTab(tab.id);
                   setError('');
                 }}
-                className={`flex-1 flex items-center justify-center gap-2.5 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${activeTab === tab.id
-                    ? 'bg-[#0076df] text-white shadow-lg'
-                    : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${activeTab === tab.id
+                  ? 'bg-[#0076df] text-white shadow-lg'
+                  : 'text-zinc-400 hover:text-white hover:bg-white/5'
                   }`}
               >
                 {tab.icon}
@@ -98,12 +97,12 @@ export default function UploadPage() {
             ))}
           </div>
 
-          {/* Error banner — more margin */}
+          {/* Error banner */}
           {error && (
             <div
               id="upload-error"
               role="alert"
-              className="flex items-start gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20 mb-8"
+              className="flex items-start gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20 mb-6"
             >
               <svg className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
@@ -118,9 +117,9 @@ export default function UploadPage() {
           </div>
 
           <div id="panel-paste" role="tabpanel" aria-labelledby="tab-paste" hidden={activeTab !== 'paste'}>
-            <div className="space-y-6">
+            <div className="space-y-5">
               <div>
-                <label htmlFor="paste-resume-textarea" className="block text-sm font-medium text-zinc-300 mb-3">
+                <label htmlFor="paste-resume-textarea" className="block text-sm font-medium text-zinc-300 mb-2">
                   Paste your resume text
                 </label>
                 <textarea
@@ -129,9 +128,9 @@ export default function UploadPage() {
                   onChange={(e) => setPasteText(e.target.value)}
                   placeholder="Paste the full text of your resume here…"
                   rows={14}
-                  className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3.5 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#0076df]/50 focus:border-[#0076df]/50 resize-none transition-all"
+                  className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#0076df]/50 focus:border-[#0076df]/50 resize-none transition-all"
                 />
-                <p className="text-xs text-zinc-600 mt-2 text-right">
+                <p className="text-xs text-zinc-600 mt-1.5 text-right">
                   {pasteText.length.toLocaleString()} characters
                 </p>
               </div>
@@ -139,7 +138,7 @@ export default function UploadPage() {
                 id="paste-submit-btn"
                 onClick={handlePasteSubmit}
                 disabled={!pasteText.trim() || pasteLoading}
-                className="w-full btn-solid font-semibold py-4 rounded-xl text-sm disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none transition-all"
+                className="w-full btn-solid font-semibold py-3.5 rounded-xl text-sm disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none transition-all"
               >
                 {pasteLoading ? (
                   <span className="flex items-center justify-center gap-2">
@@ -156,21 +155,21 @@ export default function UploadPage() {
             </div>
           </div>
 
-          {/* Result — more top margin */}
+          {/* Result */}
           {result && (
             <>
-              <div className="mt-10">
+              <div className="mt-8">
                 <ExtractedTextView
                   text={result.text}
                   charCount={result.charCount}
                   likelyScanned={result.likelyScanned}
                 />
               </div>
-              <div className="mt-8 flex flex-col sm:flex-row gap-4">
+              <div className="mt-6 flex flex-col sm:flex-row gap-3">
                 <button
                   id="analyze-btn"
                   disabled
-                  className="flex-1 btn-solid font-semibold py-4 rounded-xl text-sm opacity-50 cursor-not-allowed"
+                  className="flex-1 btn-solid font-semibold py-3.5 rounded-xl text-sm opacity-50 cursor-not-allowed"
                   title="AI analysis coming in Week 2"
                 >
                   Analyze with AI →{' '}
@@ -179,7 +178,7 @@ export default function UploadPage() {
                 <button
                   id="new-upload-btn"
                   onClick={handleNewUpload}
-                  className="flex-1 text-zinc-400 hover:text-white font-medium py-4 rounded-xl border border-white/10 hover:border-white/20 text-sm transition-all hover:bg-white/5"
+                  className="flex-1 text-zinc-400 hover:text-white font-medium py-3.5 rounded-xl border border-white/10 hover:border-white/20 text-sm transition-all hover:bg-white/5"
                 >
                   Start over
                 </button>
@@ -188,8 +187,8 @@ export default function UploadPage() {
           )}
         </div>
 
-        {/* Tips — better spacing and wider container feel */}
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {/* Tips */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {[
             { icon: '🔒', text: 'Your file never leaves this session' },
             { icon: '📄', text: 'PDF & DOCX supported, max 5 MB' },

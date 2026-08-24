@@ -1,6 +1,5 @@
 import Link from 'next/link';
 
-// ── Feature data ──────────────────────────────────────────────────────────────
 const features = [
   {
     id: 'feature-analysis',
@@ -10,8 +9,7 @@ const features = [
       </svg>
     ),
     title: 'AI Resume Analysis',
-    description:
-      'Get a comprehensive score across role-fit, ATS clarity, impact, and readability — powered by Gemini AI.',
+    description: 'Get a comprehensive score across role-fit, ATS clarity, impact, and readability — powered by Gemini AI.',
   },
   {
     id: 'feature-ats',
@@ -21,8 +19,7 @@ const features = [
       </svg>
     ),
     title: 'ATS Keyword Matching',
-    description:
-      'Identify critical keywords missing from your resume that ATS systems and recruiters are scanning for.',
+    description: 'Identify critical keywords missing from your resume that ATS systems and recruiters are scanning for.',
   },
   {
     id: 'feature-github',
@@ -32,8 +29,7 @@ const features = [
       </svg>
     ),
     title: 'GitHub Project Import',
-    description:
-      'Connect your GitHub repos and auto-generate strong, quantified resume bullets from your actual project work.',
+    description: 'Connect your GitHub repos and auto-generate strong, quantified resume bullets from your actual project work.',
   },
   {
     id: 'feature-qa',
@@ -43,8 +39,7 @@ const features = [
       </svg>
     ),
     title: 'AI Follow-up Q&A',
-    description:
-      'Answer targeted AI questions to fill resume gaps — "How many people did you lead? What was the outcome?"',
+    description: 'Answer targeted AI questions to fill resume gaps — "How many people did you lead? What was the outcome?"',
   },
 ];
 
@@ -69,7 +64,6 @@ const steps = [
   },
 ];
 
-// #23: Demo scores with labels for animation
 const demoScores = [
   { label: 'Overall', score: 82 },
   { label: 'ATS Clarity', score: 91 },
@@ -86,9 +80,8 @@ const demoFeedback = [
 export default function HomePage() {
   return (
     <div className="flex flex-col">
-
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
         {/* Dot grid */}
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.05]"
@@ -99,7 +92,7 @@ export default function HomePage() {
           aria-hidden="true"
         />
 
-        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 py-32 text-center flex flex-col items-center">
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center flex flex-col items-center">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#0076df]/30 bg-[#0076df]/10 text-[#0076df] text-xs font-medium mb-10 animate-fade-in-up">
             <span className="w-1.5 h-1.5 rounded-full bg-[#0076df] animate-pulse" />
@@ -143,7 +136,7 @@ export default function HomePage() {
             No account required &nbsp;·&nbsp; Free to try &nbsp;·&nbsp; PDF &amp; DOCX supported
           </p>
 
-          {/* Demo card — #23: animated scores */}
+          {/* Demo card */}
           <div className="w-full max-w-3xl animate-fade-in-up delay-500">
             <div className="glass-card rounded-2xl p-6 sm:p-8 shadow-2xl animate-float">
               <div className="flex items-center gap-3 mb-6">
@@ -155,14 +148,15 @@ export default function HomePage() {
                 <span className="text-xs text-zinc-600">resume_analysis.json</span>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-                {demoScores.map((s) => (
+                {demoScores.map((s, i) => (
                   <div
                     key={s.label}
                     className="bg-white/[0.04] rounded-xl p-5 text-center border border-white/[0.04] hover:border-[#0076df]/20 transition-colors"
                   >
-                    {/* #23: Each score animates in with a staggered delay using CSS animation */}
-                    <div className="text-3xl font-black mb-1 text-accent animate-[fadeInUp_0.6s_ease-out_both]"
-                      style={{ animationDelay: `${demoScores.indexOf(s) * 150 + 800}ms` }}>
+                    <div
+                      className="text-3xl font-black mb-1 text-accent animate-[fadeInUp_0.6s_ease-out_both]"
+                      style={{ animationDelay: `${i * 150 + 800}ms` }}
+                    >
                       {s.score}
                     </div>
                     <div className="text-xs text-zinc-500">{s.label}</div>
@@ -183,7 +177,7 @@ export default function HomePage() {
 
       {/* ── Features ─────────────────────────────────────────────────────── */}
       <section id="features" className="py-28 scroll-mt-20">
-        <div className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 2xl:px-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <p className="text-xs font-semibold text-[#0076df] uppercase tracking-widest mb-4">Features</p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mb-6">
@@ -196,15 +190,26 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* ... features map stays the same ... */}
+            {features.map((f) => (
+              <div
+                key={f.id}
+                id={f.id}
+                className="glass-card rounded-2xl p-8 hover:border-white/10 transition-all duration-300 group flex flex-col"
+              >
+                <div className="w-12 h-12 rounded-xl bg-[#0076df]/15 border border-[#0076df]/25 flex items-center justify-center text-[#0076df] mb-6 transition-transform duration-300 group-hover:scale-110">
+                  {f.icon}
+                </div>
+                <h3 className="text-base font-bold text-white mb-3">{f.title}</h3>
+                <p className="text-sm text-zinc-400 leading-relaxed">{f.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-
       {/* ── How it works ──────────────────────────────────────────────────── */}
       <section id="how-it-works" className="py-28 bg-[#050505] scroll-mt-20">
-        <div className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 2xl:px-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <p className="text-xs font-semibold text-[#0076df] uppercase tracking-widest mb-4">How it works</p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white">
@@ -235,12 +240,12 @@ export default function HomePage() {
 
       {/* ── Bottom CTA ───────────────────────────────────────────────────── */}
       <section className="py-28">
-        <div className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 2xl:px-32 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-6 text-white">
             Ready to get your{' '}
             <span className="text-accent">dream job?</span>
           </h2>
-          <p className="text-zinc-400 text-lg mb-12 max-w-2xl mx-auto">
+          <p className="text-zinc-400 text-lg mb-12 max-w-2xl mx-auto leading-relaxed">
             Join thousands of job seekers using Hirelume to craft resumes that get callbacks.
           </p>
           <Link
@@ -253,7 +258,6 @@ export default function HomePage() {
           <p className="mt-8 text-sm text-zinc-600">No signup needed. Results in seconds.</p>
         </div>
       </section>
-
     </div>
   );
 }

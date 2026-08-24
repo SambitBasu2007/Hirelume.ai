@@ -67,8 +67,8 @@ export default function FileUploader({ onResult, onError }: FileUploaderProps) {
       <div
         id="file-drop-zone"
         className={`relative border-2 border-dashed rounded-2xl p-10 sm:p-14 text-center cursor-pointer transition-all duration-200 ${dragging
-            ? 'border-[#0076df] bg-[#0076df]/10'
-            : 'border-white/[0.08] hover:border-[#0076df]/50 hover:bg-white/[0.02]'
+          ? 'border-[#0076df] bg-[#0076df]/10'
+          : 'border-white/[0.08] hover:border-[#0076df]/50 hover:bg-white/[0.02]'
           }`}
         onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
         onDragLeave={() => setDragging(false)}

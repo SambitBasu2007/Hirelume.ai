@@ -15,30 +15,22 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // #21: Close mobile menu on Escape key
   useEffect(() => {
     if (!menuOpen) return;
-
     function onKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') {
-        setMenuOpen(false);
-      }
+      if (e.key === 'Escape') setMenuOpen(false);
     }
-
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
   }, [menuOpen]);
 
-  // #21: Close mobile menu on outside click
   const handleOutsideClick = useCallback(
     (e: MouseEvent) => {
       if (!menuOpen) return;
       const target = e.target as Node;
       if (
-        menuRef.current &&
-        !menuRef.current.contains(target) &&
-        buttonRef.current &&
-        !buttonRef.current.contains(target)
+        menuRef.current && !menuRef.current.contains(target) &&
+        buttonRef.current && !buttonRef.current.contains(target)
       ) {
         setMenuOpen(false);
       }
@@ -53,13 +45,12 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-black/80 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/30'
-          : 'bg-transparent'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 bg-black transition-all duration-300 ${scrolled
+        ? 'bg-black/90 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/30'
+        : ''
+        }`}
     >
-      <nav className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 2xl:px-32 h-16 flex items-center justify-between">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 group" id="nav-logo">
           <div className="w-8 h-8 rounded-lg bg-[#0076df] flex items-center justify-center transition-shadow group-hover:shadow-[0_0_20px_rgba(0,118,223,0.4)]">
@@ -98,7 +89,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile hamburger — ref added for outside-click detection */}
+        {/* Mobile hamburger */}
         <button
           ref={buttonRef}
           className="md:hidden text-zinc-400 hover:text-white transition-colors p-1"
@@ -119,7 +110,7 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile dropdown — ref added for outside-click detection */}
+      {/* Mobile dropdown */}
       {menuOpen && (
         <div
           ref={menuRef}

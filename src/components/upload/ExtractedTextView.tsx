@@ -57,8 +57,8 @@ export default function ExtractedTextView({ text, charCount, likelyScanned }: Ex
             id="copy-text-btn"
             onClick={copyToClipboard}
             className={`text-xs transition-colors flex items-center gap-1.5 px-3 py-2 rounded-lg ${copied
-                ? 'text-emerald-400 bg-emerald-400/10'
-                : 'text-zinc-500 hover:text-[#0076df] hover:bg-white/5'
+              ? 'text-emerald-400 bg-emerald-400/10'
+              : 'text-zinc-500 hover:text-[#0076df] hover:bg-white/5'
               }`}
             aria-label={copied ? 'Copied to clipboard' : 'Copy extracted text to clipboard'}
           >
