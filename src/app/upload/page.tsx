@@ -14,10 +14,10 @@ interface ExtractionResult {
 
 export default function UploadPage() {
   const [activeTab, setActiveTab] = useState<Tab>('file');
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [result, setResult] = useState<ExtractionResult | null>(null);
   const [pasteText, setPasteText] = useState('');
+  const [pasteLoading, setPasteLoading] = useState(false);
 
   function handlePasteSubmit() {
     const trimmed = pasteText.trim();
@@ -25,8 +25,13 @@ export default function UploadPage() {
       setError('Please paste some text before continuing.');
       return;
     }
-    setError('');
-    setResult({ text: trimmed, charCount: trimmed.length, likelyScanned: false });
+    // #13: Brief loading state so user sees feedback
+    setPasteLoading(true);
+    setTimeout(() => {
+      setError('');
+      setResult({ text: trimmed, charCount: trimmed.length, likelyScanned: false });
+      setPasteLoading(false);
+    }, 150);
   }
 
   function handleNewUpload() {
@@ -50,7 +55,7 @@ export default function UploadPage() {
 
         {/* Card */}
         <div className="glass-card rounded-2xl p-6 sm:p-8">
-          {/* Tabs */}
+          {/* Tabs — #15: no longer reset result on tab switch */}
           <div
             className="flex bg-white/[0.04] rounded-xl p-1 mb-8"
             role="tablist"
@@ -77,7 +82,7 @@ export default function UploadPage() {
                 onClick={() => {
                   setActiveTab(tab.id);
                   setError('');
-                  setResult(null);
+                  // #15: Don't reset result — preserve extraction state when switching tabs
                 }}
                 className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                   activeTab === tab.id
@@ -105,13 +110,11 @@ export default function UploadPage() {
             </div>
           )}
 
-          {/* Tab panels */}
+          {/* Tab panels — #12: FileUploader now manages its own loading state */}
           <div id="panel-file" role="tabpanel" aria-labelledby="tab-file" hidden={activeTab !== 'file'}>
             <FileUploader
               onResult={setResult}
               onError={setError}
-              loading={loading}
-              setLoading={setLoading}
             />
           </div>
 
@@ -136,10 +139,20 @@ export default function UploadPage() {
               <button
                 id="paste-submit-btn"
                 onClick={handlePasteSubmit}
-                disabled={!pasteText.trim()}
+                disabled={!pasteText.trim() || pasteLoading}
                 className="w-full btn-solid font-semibold py-3.5 rounded-xl text-sm disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none transition-all"
               >
-                Use this text
+                {pasteLoading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                    </svg>
+                    Processing…
+                  </span>
+                ) : (
+                  'Use this text'
+                )}
               </button>
             </div>
           </div>

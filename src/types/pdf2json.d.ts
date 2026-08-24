@@ -14,7 +14,7 @@ declare module 'pdf2json' {
         parseBuffer(buffer: Buffer): void;
         getRawTextContent(): string;
         on(event: 'pdfParser_dataReady', listener: () => void): this;
-        on(event: 'pdfParser_dataError', listener: (err: any) => void): this;
+        on(event: 'pdfParser_dataError', listener: (err: unknown) => void): this;
     }
 
     export = PDFParser;

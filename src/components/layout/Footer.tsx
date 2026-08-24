@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-white/5 bg-black mt-auto">
       <div className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 2xl:px-32 py-14">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Brand */}
           <div>
             <Link href="/" className="flex items-center gap-2.5 mb-4" id="footer-logo">
@@ -38,22 +38,8 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Legal */}
-          <div>
-            <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-4">Legal</h3>
-            <ul className="space-y-3">
-              {[
-                { label: 'Privacy Policy', href: '/privacy' },
-                { label: 'Terms of Service', href: '/terms' },
-              ].map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="text-sm text-zinc-500 hover:text-zinc-200 transition-colors">
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* #25: Legal section removed — /privacy and /terms pages don't exist yet.
+              Re-add when those routes are implemented (Week 3+). */}
         </div>
 
         <div className="mt-12 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3">

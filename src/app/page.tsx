@@ -69,6 +69,20 @@ const steps = [
   },
 ];
 
+// #23: Demo scores with labels for animation
+const demoScores = [
+  { label: 'Overall', score: 82 },
+  { label: 'ATS Clarity', score: 91 },
+  { label: 'Role Fit', score: 74 },
+  { label: 'Impact', score: 68 },
+];
+
+const demoFeedback = [
+  { text: '✓ Strong quantified impact statements detected', color: 'text-emerald-400' },
+  { text: '⚠ Missing keywords: TypeScript, CI/CD, REST APIs', color: 'text-amber-400' },
+  { text: '✗ Summary section too generic for this role', color: 'text-red-400' },
+];
+
 export default function HomePage() {
   return (
     <div className="flex flex-col">
@@ -129,7 +143,7 @@ export default function HomePage() {
             No account required &nbsp;·&nbsp; Free to try &nbsp;·&nbsp; PDF &amp; DOCX supported
           </p>
 
-          {/* Demo card */}
+          {/* Demo card — #23: animated scores */}
           <div className="w-full max-w-3xl animate-fade-in-up delay-500">
             <div className="glass-card rounded-2xl p-6 sm:p-8 shadow-2xl animate-float">
               <div className="flex items-center gap-3 mb-6">
@@ -141,24 +155,22 @@ export default function HomePage() {
                 <span className="text-xs text-zinc-600">resume_analysis.json</span>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-                {[
-                  { label: 'Overall', score: 82 },
-                  { label: 'ATS Clarity', score: 91 },
-                  { label: 'Role Fit', score: 74 },
-                  { label: 'Impact', score: 68 },
-                ].map((s) => (
-                  <div key={s.label} className="bg-white/[0.04] rounded-xl p-5 text-center border border-white/[0.04]">
-                    <div className="text-3xl font-black mb-1 text-accent">{s.score}</div>
+                {demoScores.map((s) => (
+                  <div
+                    key={s.label}
+                    className="bg-white/[0.04] rounded-xl p-5 text-center border border-white/[0.04] hover:border-[#0076df]/20 transition-colors"
+                  >
+                    {/* #23: Each score animates in with a staggered delay using CSS animation */}
+                    <div className="text-3xl font-black mb-1 text-accent animate-[fadeInUp_0.6s_ease-out_both]"
+                         style={{ animationDelay: `${demoScores.indexOf(s) * 150 + 800}ms` }}>
+                      {s.score}
+                    </div>
                     <div className="text-xs text-zinc-500">{s.label}</div>
                   </div>
                 ))}
               </div>
               <div className="space-y-2.5">
-                {[
-                  { text: '✓ Strong quantified impact statements detected', color: 'text-emerald-400' },
-                  { text: '⚠ Missing keywords: TypeScript, CI/CD, REST APIs', color: 'text-amber-400' },
-                  { text: '✗ Summary section too generic for this role', color: 'text-red-400' },
-                ].map((item) => (
+                {demoFeedback.map((item) => (
                   <div key={item.text} className={`text-xs ${item.color} text-left font-mono`}>
                     {item.text}
                   </div>
@@ -170,7 +182,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Features ─────────────────────────────────────────────────────── */}
-      <section id="features" className="py-32">
+      <section id="features" className="py-32 scroll-mt-16">
         <div className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 2xl:px-32">
           <div className="text-center mb-20">
             <p className="text-xs font-semibold text-[#0076df] uppercase tracking-widest mb-4">Features</p>
@@ -202,7 +214,7 @@ export default function HomePage() {
       </section>
 
       {/* ── How it works ──────────────────────────────────────────────────── */}
-      <section id="how-it-works" className="py-32 bg-[#050505]">
+      <section id="how-it-works" className="py-32 bg-[#050505] scroll-mt-16">
         <div className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 2xl:px-32">
           <div className="text-center mb-20">
             <p className="text-xs font-semibold text-[#0076df] uppercase tracking-widest mb-4">How it works</p>

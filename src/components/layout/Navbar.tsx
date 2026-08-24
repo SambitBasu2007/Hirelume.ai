@@ -1,17 +1,55 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  // #21: Close mobile menu on Escape key
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setMenuOpen(false);
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [menuOpen]);
+
+  // #21: Close mobile menu on outside click
+  const handleOutsideClick = useCallback(
+    (e: MouseEvent) => {
+      if (!menuOpen) return;
+      const target = e.target as Node;
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(target)
+      ) {
+        setMenuOpen(false);
+      }
+    },
+    [menuOpen],
+  );
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, [handleOutsideClick]);
 
   return (
     <header
@@ -60,8 +98,9 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile hamburger */}
+        {/* Mobile hamburger — ref added for outside-click detection */}
         <button
+          ref={buttonRef}
           className="md:hidden text-zinc-400 hover:text-white transition-colors p-1"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle navigation menu"
@@ -80,9 +119,12 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile dropdown */}
+      {/* Mobile dropdown — ref added for outside-click detection */}
       {menuOpen && (
-        <div className="md:hidden bg-black/95 backdrop-blur-xl border-b border-white/5 px-6 pb-6 flex flex-col gap-1">
+        <div
+          ref={menuRef}
+          className="md:hidden bg-black/95 backdrop-blur-xl border-b border-white/5 px-6 pb-6 flex flex-col gap-1"
+        >
           {[
             { href: '/#features', label: 'Features' },
             { href: '/#how-it-works', label: 'How it works' },
