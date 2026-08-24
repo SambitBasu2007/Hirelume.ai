@@ -15,6 +15,9 @@ Upload your resume and get instant AI-powered analysis with ATS scoring, keyword
 All colors are solid — no gradients.
 
 
+
+<pre>
+```
 hirelume/
 ├── src/
 │   ├── app/                            # Next.js App Router
@@ -48,7 +51,7 @@ hirelume/
 │   ├── lib/
 │   │   ├── extract-text.ts            # PDF/DOCX text extraction (pdf2json + mammoth)
 │   │   ├── gemini.ts                  # Gemini API client (Week 2+)
-│   │   ├── prompts.ts               # AI system prompts (Week 2+)
+│   │   ├── prompts.ts                 # AI system prompts (Week 2+)
 │   │   ├── utils.ts                   # cn() utility: clsx + tailwind-merge
 │   │   └── validation.ts              # Shared file validation constants & functions
 │   └── types/
@@ -72,6 +75,8 @@ hirelume/
 ├── AGENTS.md                          # Next.js agent rules (auto-generated)
 ├── CLAUDE.md                          # Agent instructions
 └── README.md                          # This file
+```
+</pre>
 
 
 
