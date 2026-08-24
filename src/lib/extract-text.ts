@@ -1,7 +1,5 @@
+import pdfParse from 'pdf-parse';
 import mammoth from 'mammoth';
-
-// pdf-parse v2 uses CommonJS export
-const pdfParse = require('pdf-parse');
 
 export type ExtractionResult =
   | { ok: true; text: string }
