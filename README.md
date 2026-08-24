@@ -14,39 +14,57 @@ Upload your resume and get instant AI-powered analysis with ATS scoring, keyword
 
 All colors are solid — no gradients.
 
-## Directory Structure
+
 hirelume/
 ├── src/
 │   ├── app/                            # Next.js App Router
 │   │   ├── api/
+│   │   │   ├── analyze/               # AI analysis API (Week 2+)
+│   │   │   │   └── route.ts           # POST: resume text + job description → Gemini analysis
 │   │   │   └── extract-text/
-│   │   │       └── route.ts           # POST endpoint: file upload & text extraction
+│   │   │       └── route.ts           # POST: file upload → PDF/DOCX text extraction
+│   │   ├── analyze/                   # Analysis results page (Week 2+)
+│   │   │   └── page.tsx               # Displays AI scores, gaps, suggestions
 │   │   ├── upload/
 │   │   │   ├── error.tsx              # Error boundary for upload page
-│   │   │   ├── loading.tsx            # Loading UI for upload page
-│   │   │   └── page.tsx               # Upload page: tabs, file drop, paste, results
+│   │   │   ├── loading.tsx            # Loading skeleton for upload page
+│   │   │   └── page.tsx               # Upload page: file drop, paste text, extraction results
 │   │   ├── globals.css                # Tailwind v4 CSS-first config, custom utilities, animations
 │   │   ├── layout.tsx                 # Root layout: Navbar + Footer, Geist font, dark mode, metadata
 │   │   ├── not-found.tsx              # 404 page
 │   │   └── page.tsx                   # Landing page: hero, features, how-it-works, CTA
 │   ├── components/
+│   │   ├── analyze/                   # AI analysis UI components (Week 2+)
+│   │   │   ├── AnalysisDashboard.tsx  # Main analysis results container
+│   │   │   ├── KeywordGapList.tsx     # Missing keywords display
+│   │   │   ├── ScoreCard.tsx          # Individual score circle/card
+│   │   │   └── SuggestionList.tsx     # Actionable feedback items
 │   │   ├── layout/
-│   │   │   ├── Footer.tsx             # Site footer: brand, product links, legal links, copyright
-│   │   │   └── Navbar.tsx             # Sticky navbar: logo, desktop nav, CTA, mobile menu
+│   │   │   ├── Footer.tsx             # Site footer: brand, links, copyright
+│   │   │   └── Navbar.tsx             # Sticky navbar: logo, nav links, CTA, mobile menu
 │   │   └── upload/
-│   │       ├── ExtractedTextView.tsx  # Extracted text display: char count, copy, scanned-PDF warning
-│   │       └── FileUploader.tsx       # Drag-and-drop file upload with client-side validation
+│   │       ├── ExtractedTextView.tsx  # Extracted text: char count, copy button, scanned warning
+│   │       └── FileUploader.tsx       # Drag-and-drop zone with client-side validation
 │   ├── lib/
-│   │   ├── extract-text.ts            # PDF/DOCX text extraction logic (pdf2json + mammoth)
+│   │   ├── extract-text.ts            # PDF/DOCX text extraction (pdf2json + mammoth)
+│   │   ├── gemini.ts                  # Gemini API client (Week 2+)
+│   │   ├── prompts.ts               # AI system prompts (Week 2+)
 │   │   ├── utils.ts                   # cn() utility: clsx + tailwind-merge
 │   │   └── validation.ts              # Shared file validation constants & functions
-│   └── types/                         # Custom TypeScript declarations
-├── public/                              # Static assets
+│   └── types/
+│       ├── analysis.ts                # AI analysis result types (Week 2+)
+│       └── index.ts                   # Shared type declarations
+├── public/                            # Static assets
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── window.svg
 ├── .freebuff/
 │   └── run.md                         # Dev server run instructions
 ├── eslint.config.mjs                  # ESLint: Next.js core-web-vitals + TypeScript
 ├── next-env.d.ts                      # Next.js TypeScript declarations (auto-generated)
-├── next.config.ts                     # Next.js config: standalone output, security headers, image optimization
+├── next.config.ts                     # Next.js config: standalone, security headers, images
 ├── package.json                       # Dependencies: Next.js 16, React 19, pdf2json, mammoth, Tailwind v4
 ├── plan.md                            # Full product & engineering plan
 ├── postcss.config.mjs                 # PostCSS: @tailwindcss/postcss
@@ -54,6 +72,8 @@ hirelume/
 ├── AGENTS.md                          # Next.js agent rules (auto-generated)
 ├── CLAUDE.md                          # Agent instructions
 └── README.md                          # This file
+
+
 
 ## Getting Started
 
