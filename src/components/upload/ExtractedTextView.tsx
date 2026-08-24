@@ -14,23 +14,20 @@ export default function ExtractedTextView({ text, charCount, likelyScanned }: Ex
   function copyToClipboard() {
     navigator.clipboard.writeText(text).then(
       () => {
-        // #14: Show success feedback
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       },
-      () => {
-        // Silently fail — browser may not support clipboard API
-      },
+      () => { },
     );
   }
 
   return (
-    <div className="mt-8 space-y-4">
-      {/* Scanned PDF warning */}
+    <div className="space-y-5">
+      {/* Scanned PDF warning — more padding */}
       {likelyScanned && (
         <div
           id="scanned-pdf-warning"
-          className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20"
+          className="flex items-start gap-3 p-5 rounded-xl bg-amber-500/10 border border-amber-500/20"
           role="alert"
         >
           <svg className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -38,18 +35,18 @@ export default function ExtractedTextView({ text, charCount, likelyScanned }: Ex
           </svg>
           <div>
             <p className="text-sm font-semibold text-amber-300">Scanned PDF detected</p>
-            <p className="text-xs text-amber-400/80 mt-0.5">
+            <p className="text-xs text-amber-400/80 mt-1 leading-relaxed">
               This looks like an image-based PDF — we couldn&apos;t extract much text. Please use the &ldquo;Paste Text&rdquo; tab and paste your resume content manually.
             </p>
           </div>
         </div>
       )}
 
-      {/* Result card */}
+      {/* Result card — more rounded, better header spacing */}
       <div id="extracted-text-card" className="glass-card rounded-2xl overflow-hidden">
-        {/* Header */}
-        <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/5">
-          <div className="flex items-center gap-2">
+        {/* Header — more padding */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-white/5">
+          <div className="flex items-center gap-2.5">
             <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-xs font-semibold text-zinc-400">Extracted Text</span>
             <span className="text-xs text-zinc-600">
@@ -59,11 +56,10 @@ export default function ExtractedTextView({ text, charCount, likelyScanned }: Ex
           <button
             id="copy-text-btn"
             onClick={copyToClipboard}
-            className={`text-xs transition-colors flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg ${
-              copied
+            className={`text-xs transition-colors flex items-center gap-1.5 px-3 py-2 rounded-lg ${copied
                 ? 'text-emerald-400 bg-emerald-400/10'
                 : 'text-zinc-500 hover:text-[#0076df] hover:bg-white/5'
-            }`}
+              }`}
             aria-label={copied ? 'Copied to clipboard' : 'Copy extracted text to clipboard'}
           >
             {copied ? (
@@ -84,10 +80,10 @@ export default function ExtractedTextView({ text, charCount, likelyScanned }: Ex
           </button>
         </div>
 
-        {/* Text area */}
+        {/* Text area — more padding, slightly taller */}
         <pre
           id="extracted-text-content"
-          className="text-sm text-zinc-300 leading-relaxed font-mono whitespace-pre-wrap p-5 max-h-96 overflow-y-auto"
+          className="text-sm text-zinc-300 leading-relaxed font-mono whitespace-pre-wrap p-6 max-h-[28rem] overflow-y-auto"
         >
           {text || '(empty)'}
         </pre>

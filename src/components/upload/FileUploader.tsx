@@ -25,8 +25,6 @@ export default function FileUploader({ onResult, onError }: FileUploaderProps) {
     onError('');
   }
 
-  // #16: Removed eslint-disable; handleFileSelect is stable (no deps needed
-  // because it uses setState which is stable, and onError is a prop reference).
   const handleDrop = useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
@@ -64,15 +62,14 @@ export default function FileUploader({ onResult, onError }: FileUploaderProps) {
   }
 
   return (
-    <div className="space-y-5">
-      {/* Drop zone */}
+    <div className="space-y-6">
+      {/* Drop zone — more padding, larger hit area */}
       <div
         id="file-drop-zone"
-        className={`relative border-2 border-dashed rounded-2xl p-8 sm:p-10 text-center cursor-pointer transition-all duration-200 ${
-          dragging
+        className={`relative border-2 border-dashed rounded-2xl p-10 sm:p-14 text-center cursor-pointer transition-all duration-200 ${dragging
             ? 'border-[#0076df] bg-[#0076df]/10'
             : 'border-white/[0.08] hover:border-[#0076df]/50 hover:bg-white/[0.02]'
-        }`}
+          }`}
         onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
         onDragLeave={() => setDragging(false)}
         onDrop={handleDrop}
@@ -95,42 +92,42 @@ export default function FileUploader({ onResult, onError }: FileUploaderProps) {
           }}
         />
 
-        {/* Icon */}
-        <div className="w-14 h-14 rounded-2xl bg-[#0076df]/10 border border-[#0076df]/20 flex items-center justify-center mx-auto mb-5">
-          <svg className="w-7 h-7 text-[#0076df]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        {/* Icon — slightly larger */}
+        <div className="w-16 h-16 rounded-2xl bg-[#0076df]/10 border border-[#0076df]/20 flex items-center justify-center mx-auto mb-6">
+          <svg className="w-8 h-8 text-[#0076df]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
           </svg>
         </div>
 
         {selectedFile ? (
           <div>
-            <p className="text-white font-semibold mb-1 truncate max-w-full px-2">{selectedFile.name}</p>
+            <p className="text-white font-semibold mb-2 truncate max-w-full px-4 text-base">{selectedFile.name}</p>
             <p className="text-sm text-zinc-500">
               {(selectedFile.size / 1024).toFixed(0)} KB &nbsp;·&nbsp;
-              <span className="text-[#0076df] hover:text-[#38bdf8]">Change file</span>
+              <span className="text-[#0076df] hover:text-[#38bdf8] cursor-pointer">Change file</span>
             </p>
           </div>
         ) : (
           <div>
-            <p className="text-white font-medium mb-1">Drop your resume here</p>
+            <p className="text-white font-medium mb-2 text-base">Drop your resume here</p>
             <p className="text-sm text-zinc-500">
               or <span className="text-[#0076df]">click to browse</span>
             </p>
-            <p className="text-xs text-zinc-600 mt-2">PDF or DOCX &nbsp;·&nbsp; Max 5 MB</p>
+            <p className="text-xs text-zinc-600 mt-3">PDF or DOCX &nbsp;·&nbsp; Max 5 MB</p>
           </div>
         )}
       </div>
 
-      {/* Upload button — #17: added aria-busy and role="status" for loading state */}
+      {/* Upload button — taller, with status wrapper */}
       <div role="status" aria-live="polite" aria-busy={loading}>
         <button
           id="upload-submit-btn"
           onClick={handleUpload}
           disabled={!selectedFile || loading}
-          className="w-full btn-solid font-semibold py-3.5 rounded-xl text-sm disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none transition-all"
+          className="w-full btn-solid font-semibold py-4 rounded-xl text-sm disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none transition-all"
         >
           {loading ? (
-            <span className="flex items-center justify-center gap-2">
+            <span className="flex items-center justify-center gap-2.5">
               <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
