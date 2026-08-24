@@ -1,0 +1,100 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ── Color palette ───────────────────────────────────────────────────────── */
+/* Majority: #000000  |  Accent: #0076df  |  Neutral: zinc tones              */
+
+:root {
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #475569;
+}
+
+/* ── Base resets ────────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #000000;
+  color: var(--text-primary);
+  font-family: var(--font-sans, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── Solid accent text ──────────────────────────────────────────────────── */
+.text-accent {
+  color: #0076df;
+}
+
+/* ── Glass card ─────────────────────────────────────────────────────────── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ── Solid button ───────────────────────────────────────────────────────── */
+.btn-solid {
+  background-color: #0076df;
+  color: #ffffff;
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-solid:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 30px rgba(0, 118, 223, 0.3);
+}
+
+.btn-solid:active {
+  transform: translateY(0);
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 118, 223, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 118, 223, 0.6);
+}
+
+/* ── Animations ─────────────────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.65; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+.animate-fade-in-up  { animation: fadeInUp 0.6s ease forwards; }
+.animate-pulse-slow  { animation: pulseSlow 5s ease-in-out infinite; }
+.animate-float       { animation: float 7s ease-in-out infinite; }
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
