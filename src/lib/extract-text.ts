@@ -25,7 +25,12 @@ export async function extractFromPdf(buffer: Buffer): Promise<ExtractionResult> 
       resolve({ ok: false, error: 'Failed to parse PDF file.' });
     });
 
-    pdfParser.parseBuffer(buffer);
+    try {
+      pdfParser.parseBuffer(buffer);
+    } catch (err) {
+      console.error('[extract-text] PDF parse error:', err);
+      resolve({ ok: false, error: 'Failed to parse PDF file.' });
+    }
   });
 }
 
